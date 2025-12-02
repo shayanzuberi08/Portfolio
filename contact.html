@@ -1,0 +1,398 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+  <meta charset="UTF-8" />
+  <meta name="viewport" content="width=device-width, initial-scale=1" />
+  <title>Contact - Shayan Zuberi Portfolio</title>
+  <!-- icons & AOS -->
+  <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/6.7.1/css/all.min.css">
+  <link rel="stylesheet" href="https://unpkg.com/aos@next/dist/aos.css" />
+
+  <style>
+    /* ===== fonts & reset ===== */
+    @import url('https://fonts.googleapis.com/css2?family=Poppins:wght@100;200;300;400;500;600&display=swap');
+
+    *{box-sizing:border-box;margin:0;padding:0}
+    html,body{height:100%}
+    body{
+      font-family:'Poppins',sans-serif;
+      background: linear-gradient(to right, rgb(255,255,255), rgb(254,215,173));
+      color:#111;
+      -webkit-font-smoothing:antialiased;
+      -moz-osx-font-smoothing:grayscale;
+      line-height:1.4;
+      overflow-y:auto;
+    }
+
+         nav {
+            width: 100%;
+            height: 10vh;
+            position: sticky;
+        }
+
+
+        .nav-container {
+            width: 100%;
+            height: 100%;
+            display: flex;
+            justify-content: space-around;
+            align-items: center;
+        }
+
+        .logo {
+            color: black;
+            font-size: 2rem;
+            font-weight: bolder;
+        }
+
+        .logo span {
+            color: rgb(109, 67, 0);
+            text-shadow: 0 0 10px rgb(109, 67, 0);
+        }
+
+        .hamburg,
+        .cancel {
+            cursor: pointer;
+            position: absolute;
+            right: 15px;
+            top: 10px;
+            color: black;
+            font-size: 2rem;
+            display: none;
+        }
+
+        .nav-container .links {
+            display: flex;
+            gap: 3rem;
+            align-items: center;
+        }
+
+        .nav-container .links a {
+            position: relative;
+            font-size: 1.2rem;
+            color: black;
+            text-decoration: none;
+            font-weight: 500;
+            transform: 0.3s linear;
+        }
+
+        .nav-container .links a::before {
+            position: absolute;
+            content: "";
+            bottom: -3px;
+            left: 0;
+            width: 0%;
+            height: 3px;
+            background-color: rgb(109, 67, 0);
+            transition: 0.2s linear;
+        }
+
+        .nav-container .links a:hover::before {
+            width: 100%;
+        }
+
+        .nav-container .contact-btn {
+            background-color: transparent;
+            padding: 5px 20px;
+            border-radius: 20px;
+            border: 2px solid rgb(109, 67, 0);
+            transition: 0.2s linear;
+            color: #000;
+            text-decoration: none;
+        }
+
+        .nav-container .contact-btn a {
+            color: white;
+            transition: 0.3s linear;
+        }
+
+        .nav-container .contact-btn:hover,
+        .nav-container .contact-btn:hover a {
+            background-color: rgb(109, 67, 0);
+            color: white;
+        }
+
+        .nav-container .links a:hover {
+            color: rgb(109, 67, 0);
+        }
+
+        
+    /* existing .dropdown */
+.dropdown{
+    z-index: 100;
+    position: absolute;
+    top: 0;
+    transform: translateY(-500px);
+    width: 100%;
+    height: auto;
+    backdrop-filter: brightness(40%) blur(3px);
+    box-shadow: 0 0 20px black;
+    transition: transform 0.2s linear;
+}
+
+/* NEW: open state */
+.dropdown.open {
+    transform: translateY(0);
+}
+        .dropdown .links a {
+            color: white;
+            display: flex;
+            text-decoration: none;
+            justify-content: center;
+            padding: 15px 0;
+            align-items: center;
+            transition: 0.2s linear;
+        }
+
+        .dropdown .links a:hover {
+            background-color: rgb(109, 67, 0);
+        }
+
+    /* ===== page layout ===== */
+    .container{max-width:1100px;margin:36px auto;padding:0 20px}
+    .page-grid{display:grid;grid-template-columns:1fr 420px;gap:30px;align-items:start}
+
+
+
+    @media (max-width:980px){ .page-grid{grid-template-columns:1fr;gap:22px}}
+
+    /* left column (contact form + text) */
+    .card{
+      background:rgba(255,255,255,0.95);
+      border-radius:14px;
+      padding:26px;
+      box-shadow:0 10px 30px rgba(0,0,0,0.06);
+      border:1px solid rgba(0,0,0,0.04);
+    }
+
+    .title{margin-bottom:6px;font-size:clamp(1.6rem,3.8vw,2rem);font-weight:700}
+    .subtitle{color:rgba(0,0,0,0.7);margin-bottom:18px}
+
+    /* form */
+    form{display:flex;flex-direction:column;gap:12px}
+    .row{display:flex;gap:12px}
+    .row .field{flex:1}
+    label{display:block;font-size:0.9rem;margin-bottom:6px;color:#222;font-weight:600}
+    input[type="text"], input[type="email"], textarea, input[type="tel"]{
+      width:100%;
+      padding:12px 14px;
+      border-radius:10px;
+      border:1px solid rgba(0,0,0,0.08);
+      background: #fff;
+      font-size:0.95rem;
+      color:#111;
+      outline:none;
+      transition:box-shadow .12s ease, border-color .12s ease;
+    }
+    input:focus, textarea:focus{box-shadow:0 6px 18px rgba(109,67,0,0.06);border-color:rgba(109,67,0,0.18)}
+    textarea{min-height:140px;resize:vertical;padding-top:12px}
+
+    .form-actions{display:flex;gap:12px;align-items:center;margin-top:6px}
+    .btn-primary{padding:10px 14px;border-radius:10px;background:rgb(109,67,0);color:#fff;border:none;cursor:pointer;font-weight:700}
+    .btn-ghost{padding:10px 14px;border-radius:10px;background:transparent;border:1px solid rgba(0,0,0,0.06);cursor:pointer;font-weight:600}
+
+    /* right column (contact info) */
+    .info{
+      display:flex;flex-direction:column;gap:14px;
+    }
+    .info .info-card{
+      background:rgba(255,255,255,0.95);padding:18px;border-radius:12px;border:1px solid rgba(0,0,0,0.04);box-shadow:0 8px 20px rgba(0,0,0,0.05)
+    }
+    .info h4{margin-bottom:6px;color:#111}
+    .info p{color:rgba(0,0,0,0.65);font-size:0.95rem;margin-bottom:6px}
+    .socials{display:flex;gap:10px;margin-top:6px}
+    .socials a{display:inline-flex;align-items:center;justify-content:center;width:40px;height:40px;border-radius:10px;border:1px solid rgba(0,0,0,0.06);text-decoration:none;color:#111;background:#fff}
+
+    @media (max-width:884px){
+      .row{flex-direction:column}
+      .nav-container .links{display:none}
+      .page-grid{padding:0 6px}
+      .title{text-align:center}
+      .subtitle{text-align:center}
+      .card{padding:18px}
+      .info{order:-1}
+      .contact-btn {display: none;}
+    .hamburg,.cancel {display: block;z-index: 120; }
+    nav .logo {
+                position: absolute;
+                top: 16px;
+                left: 15px;
+                font-size: 1.5rem;
+                z-index: 110;
+            }
+    }
+  </style>
+</head>
+<body>
+    <nav>
+        <div class="nav-container">
+            <div class="logo" data-aos="zoom-in" data-aos-duration="1000">
+                <span>Shayan Zuberi</span>
+            </div>
+            <div class="links">
+                <div class="link" data-aos="fade-up" data-aos-duration="1000" data-aos-delay="100"><a
+                        href="index.html">Home</a>
+                </div>
+                <div class="link" data-aos="fade-up" data-aos-duration="1000" data-aos-delay="300"><a
+                        href="skills.html">Skills</a></div>
+                <div class="link" data-aos="fade-up" data-aos-duration="1000" data-aos-delay="400"><a
+                        href="certificates.html">Certificates</a></div>
+                <div class="link" data-aos="fade-up" data-aos-duration="1000" data-aos-delay="500"><a
+                        href="projects.html">Projects</a></div>
+            </div>
+            <a href="contact.html" class="contact-btn" data-aos="fade-up" data-aos-duration="1000"
+                data-aos-delay="400">Contact</a>
+        </div>
+        <i class="fa-solid fa-bars hamburg" onclick="toggleMenu()"></i>
+        <div class="dropdown">
+            <div class="links">
+                <a href="index.html">Home</a>
+                <a href="skills.html">Skills</a>
+                <a href="certificates.html">Certificates</a>
+                <a href="projects.html">Projects</a>
+                <a href="contact.html">Contact Us</a>
+                <i class="fa-solid fa-xmark cancel" onclick="cancel()"></i>
+            </div>
+        </div>
+    </nav>
+
+  <main class="container" role="main">
+    <div class="page-grid">
+      <!-- left: contact form -->
+      <section class="card" data-aos="fade-up">
+        <div>
+          <div class="title">Get in touch</div>
+          <div class="subtitle">If you want to ask something, discuss a project, or hire me — feel free to send me a message. I usually respond within 24 hours.</div>
+        </div>
+
+        <form id="contactForm" data-aos="fade-up" data-aos-delay="120">
+          <div class="row">
+            <div class="field">
+              <label for="name">Your name</label>
+              <input id="name" name="name" type="text" placeholder="Full Name" required>
+            </div>
+            <div class="field">
+              <label for="phone">Phone</label>
+              <input id="phone" name="phone" type="tel" placeholder="+92 3XX XXXXXX">
+            </div>
+          </div>
+
+          <div class="row">
+            <div class="field">
+              <label for="email">Email</label>
+              <input id="email" name="email" type="email" placeholder="your@email.com" required>
+            </div>
+            <div class="field">
+              <label for="subject">Subject</label>
+              <input id="subject" name="subject" type="text" placeholder="Project / Question">
+            </div>
+          </div>
+
+          <div>
+            <label for="message">Message</label>
+            <textarea id="message" name="message" placeholder="Type your message..." required></textarea>
+          </div>
+
+          <div class="form-actions">
+            <button type="submit" class="btn-primary">Send Message</button>
+            <button type="button" class="btn-ghost" id="clearBtn">Clear</button>
+            <div style="margin-left:auto" class="muted">Or email me: <strong>shayanzuberi08@gmail.com</strong></div>
+          </div>
+        </form>
+      </section>
+
+      <!-- right: contact info -->
+      <aside class="info">
+        <div class="info-card" data-aos="fade-up">
+          <h4>Contact Info</h4>
+          <p class="muted">Available for freelance work and full-time opportunities.</p>
+          <p><strong>Phone:</strong> +92 3309042361</p>
+          <p><strong>Email:</strong> shayanzuberi08@gmail.com</p>
+          <p><strong>Location:</strong> Karachi, Pakistan</p>
+
+          <div class="socials" style="margin-top:12px">
+            <a href="https://github.com/shayanzuberi08" title="GitHub"><i class="fab fa-github"></i></a>
+            <a href="https://www.linkedin.com/in/shayan-zuberi-a04798328/" title="LinkedIn"><i class="fab fa-linkedin-in"></i></a>
+            <a href="https://www.facebook.com/shayan.zuberi.75/" title="Facebook"><i class="fab fa-facebook-f"></i></a>
+            <a href="https://www.instagram.com/shayan.zuberi.75/?next=%2F" title="Instagram"><i class="fab fa-instagram"></i></a>
+          </div>
+        </div>
+        <div class="info-card" data-aos="fade-up" data-aos-delay="160">
+          <h4>Business hours</h4>
+          <p class="muted">Mon — Fri: 10:00 — 18:00</p>
+          <p class="muted">Sat: 10:00 — 14:00</p>
+        </div>
+      </aside>
+    </div>
+  </main>
+  <br>
+  <br>
+
+  <!-- scripts -->
+  <script src="https://unpkg.com/aos@next/dist/aos.js"></script>
+  <script>
+    AOS.init({ offset: 0 });
+     
+const dropdown = document.querySelector(".dropdown");
+const icon = document.querySelector(".hamburg");
+
+// helper functions
+function openMenu() {
+  dropdown.classList.add("open");
+  icon.classList.remove("fa-bars");
+  icon.classList.add("fa-xmark");
+}
+
+function closeMenu() {
+  dropdown.classList.remove("open");
+  icon.classList.remove("fa-xmark");
+  icon.classList.add("fa-bars");
+}
+
+function toggleMenu() {
+  if (dropdown.classList.contains("open")) {
+    closeMenu();
+  } else {
+    openMenu();
+  }
+}
+
+// keep for safety (from your markup)
+function cancel() {
+  closeMenu();
+}
+
+// IMPORTANT: when the window becomes wider than breakpoint, ensure menu is closed
+window.addEventListener("resize", function() {
+  if (window.innerWidth > 884) {
+    // close menu and reset icon
+    closeMenu();
+  }
+});
+
+// optional: if you prefer not to use inline onclick in HTML, attach event here
+// document.querySelector(".hamburg").addEventListener("click", toggleMenu);
+// document.querySelector(".cancel").addEventListener("click", cancel);
+
+    // Simple form submit handler (client-side only) — replace with server endpoint if you have one
+    document.getElementById('contactForm').addEventListener('submit', function(e){
+      e.preventDefault();
+      // basic validation
+      const name = document.getElementById('name').value.trim();
+      const email = document.getElementById('email').value.trim();
+      const message = document.getElementById('message').value.trim();
+      if(!name || !email || !message){
+        alert('Please fill required fields (name, email, message).');
+        return;
+      }
+      // show success (replace with real submission)
+      alert('Message sent — thank you! I will reply soon.');
+      this.reset();
+    });
+
+    document.getElementById('clearBtn').addEventListener('click', function(){
+      document.getElementById('contactForm').reset();
+    });
+  </script>
+</body>
+</html>
